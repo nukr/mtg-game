@@ -15,11 +15,12 @@ let goryos_vengeance = "http://gatherer.wizards.com/Handlers/Image.ashx?multiver
 let fury_of_the_horde = "http://mtgimage.com/card/Fury of the Horde.jpg"
 
 let Store = {};
-Store.playerHand = [simian_spirit_guild, simian_spirit_guild, faithless_looting, griselbrand, goryos_vengeance, fury_of_the_horde, swamp];
-Store.oppositeHand = [cardback, cardback, cardback, cardback, cardback, cardback, cardback];
-Store.oppoBattleField = [];
-Store.playerBattleField = [];
-Store.review = "";
+let State = {};
+State.playerHand = [simian_spirit_guild, simian_spirit_guild, faithless_looting, griselbrand, goryos_vengeance, fury_of_the_horde, swamp];
+State.oppositeHand = [cardback, cardback, cardback, cardback, cardback, cardback, cardback];
+State.oppoBattleField = [];
+State.playerBattleField = [];
+State.review = "";
 
 /**
  * @description
@@ -34,7 +35,14 @@ Store.review = "";
 Object.assign(Store, EventEmitter.prototype, {
 
   getTruth() {
-    return Store;
+    return State;
+  },
+
+  cast(card){
+    State.playerBattleField.push(card);
+    let index = 0;
+    index = State.playerHand.indexOf(card);
+    State.playerHand.splice(index, 1);
   },
 
   addChangeListener(callback) {
@@ -65,7 +73,12 @@ Store.dispatchToken = AppDispatcher.register(function eventHandlers(evt) {
       break;
 
     case AppConstants.REVIEW:
-      Store.review = action.items;
+      State.review = action.items;
+      Store.emit(AppConstants.CHANGE_EVENT);
+      break;
+
+    case AppConstants.CAST:
+      Store.cast(action.items);
       Store.emit(AppConstants.CHANGE_EVENT);
       break;
 

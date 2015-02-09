@@ -7,6 +7,7 @@ module.exports = keyMirror({
   SOURCE_ROUTER_ACTION: null,
   DATA_LOAD: null,
   REVIEW: null,
+  CAST: null,
   CHANGE_EVENT: null
 
 });

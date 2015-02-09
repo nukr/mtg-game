@@ -33,7 +33,7 @@ let Main = React.createClass({
       <div className="main">
         <Opposite cards={this.state.oppositeHand} />
         <OppoBattleField />
-        <PlayerBattleField />
+        <PlayerBattleField cards={this.state.playerBattleField} />
         <Player cards={this.state.playerHand} />
         <Sidebar review={this.state.review} />
       </div>

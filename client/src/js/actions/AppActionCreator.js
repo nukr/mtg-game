@@ -17,6 +17,13 @@ let AppActionCreators = {
     })
   },
 
+  cast(card){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.CAST,
+      items: card
+    })
+  },
+
   saveToStore(data){
     AppDispatcher.handleViewAction({
       actionType: AppConstants.SAVE,
